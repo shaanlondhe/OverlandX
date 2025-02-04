@@ -7,12 +7,12 @@ dotenv.config();
 
 const app = express();
 
-// Enable CORS for Live Server and local network
+// Enable CORS for your domain
 app.use(cors({
     origin: [
-        'http://127.0.0.1:5500',
-        'http://localhost:5500',
-        'http://192.168.1.156:5500'  // Your local IP
+        'https://overlandx.xyz',
+        'https://www.overlandx.xyz',
+        'http://localhost:5500'  // Keep local development
     ],
     methods: ['POST', 'GET', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Accept']
