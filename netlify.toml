@@ -5,7 +5,9 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  force = true
+
+[build.processing]
+  skip_processing = true
 
 [[headers]]
   for = "/*"
