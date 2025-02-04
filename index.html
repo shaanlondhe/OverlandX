@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OverlandX - Adventure Awaits</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <header>
+            <nav class="nav-bar">
+                <a href="index.html" class="logo">OverlandX</a>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="about.html">About</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Trail List Panel -->
+            <aside class="trail-panel">
+                <h2>Routes</h2>
+                <div class="trail-list" id="trailList">
+                    <!-- Trails will be populated here -->
+                </div>
+            </aside>
+
+            <!-- Map Container -->
+            <section class="map-container">
+                <div id="map"></div>
+            </section>
+        </main>
+
+        <!-- AI Chat Assistant -->
+        <div class="chat-widget" id="chatWidget">
+            <button class="chat-toggle" id="chatToggle">
+                <span>Trail Assistant</span>
+            </button>
+            <div class="chat-container" id="chatContainer" style="display: none;">
+                <div class="chat-header">
+                    <h3>Trail Assistant</h3>
+                    <button class="close-chat" id="closeChat">×</button>
+                </div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Ask about trails...">
+                    <button id="sendMessage">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <script type="module" src="trailManager.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html> 

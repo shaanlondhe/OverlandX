@@ -1,0 +1,357 @@
+{
+  "trails": [
+    {
+      "id": "anza-borrego",
+      "name": "Anza-Borrego Discovery Trail",
+      "distance": 216,
+      "time": "4-6 days",
+      "avgRating": "2-3",
+      "peakRating": "4",
+      "terrain": "Washes with deep silt and sandy, bump jeep tracks, graded dirt roads with washboards, and a few steep sections where 4-low is recommended to descend the trails (Diablo and Borrego Mountain Wash drop-offs, Piepkorn slot).",
+      "gpxFile": "Anza-Borrego Discovery Trail/anza_borrego_disco-trail-2024.gpx",
+      "region": "Southern California",
+      "bestSeason": ["Fall", "Winter", "Spring"],
+      "vehicleRequirements": {
+        "clearance": "High",
+        "fourWheelDrive": true,
+        "skillLevel": "Intermediate"
+      }
+    },
+    {
+      "id": "big-bear",
+      "name": "Big Bear Track",
+      "distance": 139,
+      "time": "2.5-5 days",
+      "avgRating": "2-3",
+      "peakRating": "5-6",
+      "terrain": "The Big Bear Track is incredibly varied. You'll drive everything from mellow graded dirt roads, to rocky jeep tracks that can get narrow and loose, and even a few sections that may require spotting here and there. Despite the shorter length of this track, this rockier sections typically translates to less miles traveled per day.",
+      "gpxFile": "Big Bear Track/big-bear-track.gpx",
+      "region": "Southern California",
+      "bestSeason": ["Spring", "Summer", "Fall"],
+      "vehicleRequirements": {
+        "clearance": "Medium",
+        "fourWheelDrive": true,
+        "skillLevel": "Intermediate"
+      }
+    },
+    {
+      "id": "big-sur",
+      "name": "Big Sur Adventure Route",
+      "distance": 136,
+      "time": "2-3 days",
+      "avgRating": "1",
+      "peakRating": "3",
+      "terrain": "A mixture of highway, paved road, and wide dirt roads.",
+      "gpxFile": "Big Sur Adventure Route/bigsur-adv-route1.gpx",
+      "region": "Central California",
+      "bestSeason": ["Spring", "Summer", "Fall"],
+      "vehicleRequirements": {
+        "clearance": "High",
+        "fourWheelDrive": true,
+        "skillLevel": "Advanced"
+      }
+    },
+    {
+      "id": "california-crest-trail",
+      "name": "California Crest Trail",
+      "distance": 2150,
+      "time": "4-10 weeks",
+      "terrain": "Approximately 2/3 dirt, 1/3 pavement",
+      "gpxFile": [
+        "California Crest Trail/cct-segment-1-the-basin-ranges-route-only.gpx",
+        "California Crest Trail/cct-segment-2-the-sierras-route-only.gpx",
+        "California Crest Trail/cct-segment-3-southern-cascades-klamath-mountains-route-only.gpx",
+        "California Crest Trail/cct-segment-4-the-coastal-ranges-route-only.gpx"
+      ],
+      "region": "Multiple",
+      "bestSeason": ["Summer"],
+      "vehicleRequirements": {
+        "clearance": "High",
+        "fourWheelDrive": true,
+        "skillLevel": "Expert"
+      }
+    },
+    {
+      "id": "death-valley",
+      "name": "Death Valley Adventure Route",
+      "distance": 421,
+      "time": "4-8 days",
+      "avgRating": "2",
+      "peakRating": "5-6",
+      "terrain": "The track includes everything from high speed dirt roads with washboards, sections of deep sand (Saline Valley), bumpy and steep jeep tracks with exposure, and the waterfall section through Dedeckera Canyon, that is the most technical portion of the route. There is some interconnecting pavement.",
+      "gpxFile": "Death Valley Adventure Route/death-valley-adv-route-2024.gpx",
+      "region": "Mojave Desert",
+      "bestSeason": ["Fall", "Winter", "Spring"],
+      "vehicleRequirements": {
+        "clearance": "High",
+        "fourWheelDrive": true,
+        "skillLevel": "Advanced"
+      }
+    },
+    {
+      "id": "east-mojave",
+      "name": "East Mojave Heritage Trail",
+      "distance": 740,
+      "time": "7-14 days",
+      "avgRating": "3",
+      "peakRating": "4",
+      "terrain": "Graded dirt and gravel roads, sandy washes, and rocky jeep tracks.",
+      "gpxFile": "East Mojave Heritage Trail/emht-segments-1-4.gpx",
+      "region": "Mojave Desert",
+      "bestSeason": ["Fall", "Winter", "Spring"],
+      "vehicleRequirements": {
+        "clearance": "High",
+        "fourWheelDrive": true,
+        "skillLevel": "Advanced"
+      }
+    },
+    {
+      "id": "eastern-sierra",
+      "name": "Eastern Sierra Traverse",
+      "distance": 249,
+      "time": "4-8 days",
+      "avgRating": "3",
+      "peakRating": "5",
+      "terrain": "The terrain consists of well kept graded dirt roads, lesser used two tracks, rocky and steep jeep tracks, and some steep shelf roads with lots of exposure.",
+      "gpxFile": "Eastern Sierra Traverse/eastern-sierra-traverse.gpx",
+      "region": "Sierra Nevada",
+      "bestSeason": ["Summer", "Fall"],
+      "vehicleRequirements": {
+        "clearance": "High",
+        "fourWheelDrive": true,
+        "skillLevel": "Advanced"
+      }
+    },
+    {
+      "id": "el-dorado",
+      "name": "El Dorado Backcountry Discovery Trail",
+      "distance": 192,
+      "time": "4-6 days",
+      "avgRating": "2-3",
+      "peakRating": "5",
+      "terrain": "The track features a solid amount of moderate trails, in addition to graded dirt roads, some rockier two track, and interconnecting pavement. Moderate trails include Strawberry Pass, Pickett Peak, Forestdale Divide, Pardoe's Trail, and Long Canyon Jeep Trail.",
+      "gpxFile": "El Dorado Backcountry Discovery Trail/el-dorado-bdt-2024.gpx",
+      "region": "Northern California",
+      "bestSeason": ["Spring", "Summer", "Fall"],
+      "vehicleRequirements": {
+        "clearance": "Medium",
+        "fourWheelDrive": true,
+        "skillLevel": "Intermediate"
+      }
+    },
+    {
+      "id": "emerald-triangle",
+      "name": "Emerald Triangle Grand Traverse",
+      "distance": 665,
+      "time": "6-12 days",
+      "avgRating": "Green",
+      "terrain": "60% dirt, 40% pavement. The dirt sections are primarily well kept service roads, but there is a mild rocky section the last couple of miles up Hull Mountain.",
+      "gpxFile": "Emerald Triangle Grand Traverse/emeraldtriangle-grandtraverse.gpx"
+    },
+    {
+      "id": "joshua-tree",
+      "name": "Joshua Tree Adventure Route",
+      "distance": 120,
+      "time": "2-5 days",
+      "avgRating": "2-3",
+      "peakRating": "4",
+      "terrain": "The first leg of the route is along paved roads. Geology tour road is mostly a wide graded dirt road, while Berdoo Canyon features a few rockier sections. Old Dale Road is the an old jeep trail and is the rockiest and bumpiest part of the track.",
+      "gpxFile": "Joshua Tree Adventure Route/joshuatree-adv-route.gpx"
+    },
+    {
+      "id": "lassen",
+      "name": "Lassen Backcountry Discovery Trail",
+      "distance": 181,
+      "time": "3-5 days",
+      "avgRating": "2-3",
+      "peakRating": "3-4",
+      "terrain": "The track consists primarily of graded dirt forest service roads, and a few narrow secondary dirt roads. There is some minimal connecting pavement.",
+      "gpxFile": "Lassen Backcountry Discovery Trail/lassen-bdt-route.gpx"
+    },
+    {
+      "id": "lost-coast",
+      "name": "Lost Coast Trail",
+      "distance": 160,
+      "time": "2-4 days",
+      "avgRating": "2",
+      "peakRating": "3",
+      "terrain": "Dirt forest roads with a few steep sections, as well as some mild erosion and ruts between Usal Beach and Four Corners. The terrain gets steep and loose on the way up to Saddle Mountain Road. Sections of Usal Road and Saddle Mountain Road have become overgrown with encroaching brush and low hanging branches. Mud may be prevalent after heavy rains, especially in Sinkyone State Park. Some Pavement along some lesser used backroads.",
+      "gpxFile": "Lost Coast Trail/lost-coast-4x4-trail-2024-v2.gpx"
+    },
+    {
+      "id": "lost-sierra",
+      "name": "Lost Sierra 4x4 Trail",
+      "distance": 204,
+      "time": "4-8 days",
+      "avgRating": "3",
+      "peakRating": "5",
+      "terrain": "Graded forest service roads, numerous rocky jeep tracks, a few shelf roads with a lot of exposure, and some connecting pavement. Inexperienced off roaders will benefit from a spotter for trails like Poker Flat.",
+      "gpxFile": "Lost Sierra 4x4 Trail/lost-sierra-4x4-trail.gpx"
+    },
+    {
+      "id": "mendocino-bdt",
+      "name": "Mendocino Backcountry Discovery Trail",
+      "distance": 167,
+      "time": "2-3 days",
+      "avgRating": "2",
+      "peakRating": "3",
+      "terrain": "Primarily wide dirt and gravel roads. There is mild section that is steeper with some minimal rocks the last 2-3 miles up Hull Mountain. When going to the summit of Hull Mountain, AWD vehicles, Sprinter 4x4s, and adventure bikes should consider staying left at the fork onto the \"easy\" trail.",
+      "gpxFile": "Mendocino Backcountry Disovery Trail/mendocino-bdt-pois-v2024.gpx"
+    },
+    {
+      "id": "mendocino-circuit",
+      "name": "Mendocino Grand Circuit",
+      "distance": 301,
+      "time": "4-7 days",
+      "avgRating": "Green",
+      "terrain": "Dirt forest roads, minimal pavement. There are some minimal rocks and off-camber sections, such as the upper third of Hull Mountain Road (M1).",
+      "gpxFile": "Mendocino Grand Circuit/mendocino-grand-circuit.gpx"
+    },
+    {
+      "id": "modoc",
+      "name": "Modoc Backcountry Discovery Trail",
+      "distance": 204,
+      "time": "2-4 days",
+      "avgRating": "Green",
+      "gpxFile": "Modoc Backcountry Discovery Trail/modoc-bdt-poi.gpx"
+    },
+    {
+      "id": "mojave-road",
+      "name": "Mojave Road",
+      "distance": 138,
+      "time": "1.5-3 days",
+      "avgRating": "2",
+      "peakRating": "4",
+      "terrain": "Along the way you can expect to encounter deep sandy, large washes, whoops, some rocks, and one hill that can pose a challenge to vehicle with limited articulation (Sprinter vans). Paiute Pass has also gone from an easy trail to a moderate trail due to the increased intensity of recent winter storms. The water crossing at Afton Canyon regularly reaches 3' and sometimes higher. Vehicles like Subarus may have trouble with this section and may want to consider using the Afton Canyon Reroute.",
+      "gpxFile": "Mojave Road/mojave-road-route-only.gpx"
+    },
+    {
+      "id": "new-idria",
+      "name": "New Idria Adventure Trail",
+      "distance": 151,
+      "time": "2-4 days",
+      "avgRating": "2",
+      "peakRating": "3",
+      "terrain": "This track is approximately 60% dirt and 40% pavement. Expect mostly well graded dirt roads, some very bump paved county roads, and some steeper and off camber tracks through Clear Creek Management Area.",
+      "gpxFile": "New Idria Adventure Trail/new-idria-adv-route.gpx"
+    },
+    {
+      "id": "pacific-crest",
+      "name": "Pacific Crest Overland Route",
+      "distance": 1606,
+      "time": "2-4 weeks",
+      "avgRating": "2",
+      "peakRating": "4",
+      "terrain": "The California segment contains the most \"technical\" terrain of the PCOR segments, and these moderate stretches are rather short. Terrain is incredibly varied from sandy trails and washes, to wide gravel and dirt roads, and a few rocky jeep tracks. The California segment has the most difficult (we'd call it moderate) terrain found in all of the PCOR segments. Rockier terrain is typically found near Joshua Tree (Old Dale Road), through the Mojave National Preserve, and Lippencott Pass in Death Valley.",
+      "gpxFile": "Pacific Crest Overland Route/pacific-crest-ca-trackonly-seg1.gpx"
+    },
+    {
+      "id": "plumas",
+      "name": "Plumas Backcountry Discovery Trail",
+      "distance": 167,
+      "time": "3-4 days",
+      "avgRating": "mostly green",
+      "terrain": "Primarily wide dirt forest service roads. Poker Flat is a slow going and rocky jeep trail.",
+      "gpxFile": "Plumas Backcountry Discovery Trail/plumas-bdt-route-only.gpx"
+    },
+    {
+      "id": "redwood-coast",
+      "name": "Redwood Coast Adventure Trail",
+      "distance": 472,
+      "time": "4-10 days",
+      "avgRating": "1-2",
+      "peakRating": "2",
+      "terrain": "Graded dirt and gravel roads, backcountry paved roads, and some highways.",
+      "gpxFile": "Redwood Coast Adventure Trail/redwood-coast-adv-trail-2024.gpx"
+    },
+    {
+      "id": "shasta-trinity",
+      "name": "Shasta-Trinity Backcountry Discovery Trail",
+      "distance": 257,
+      "time": "3-6 days",
+      "avgRating": "2",
+      "peakRating": "4",
+      "terrain": "Dirt forest service roads, some pavement, and a short stint on a rocky jeep trail. Tamarack Lake, which is a short out-and-back trail is the only section of trail with a rating of 4.",
+      "gpxFile": "Shasta-Trinity Backcountry Discovery Trail/shasta-trinity-bdt-2024.gpx"
+    },
+    {
+      "id": "six-rivers",
+      "name": "Six Rivers Backcountry Discovery Trail",
+      "distance": 219,
+      "time": "2-4 days",
+      "avgRating": "Green",
+      "terrain": "This particular BDT contains more pavement than other BDT routes in California (approx 30% dirt). Consider the alternative route that adds significantly more dirt.",
+      "gpxFile": "Six Rivers Backcountry Discovery Trail/sixrivers-bdt.gpx"
+    },
+    {
+      "id": "sonoran",
+      "name": "Sonoran Traverse",
+      "distance": 317,
+      "time": "4-7 days",
+      "avgRating": "2-3",
+      "peakRating": "4",
+      "terrain": "Graded dirt and gravel roads, sandy washes, and rocky jeep tracks.",
+      "gpxFile": "Sonoran Traverse/the-sonoran-traverse.gpx"
+    },
+    {
+      "id": "steelhead",
+      "name": "Steelhead Adventure Trail",
+      "distance": 246,
+      "time": "4-6 days",
+      "avgRating": "2",
+      "peakRating": "4",
+      "terrain": "Graded forest service roads, some secondary and lesser maintained service roads and with connecting pavement to the various trails. Rattlesnake Ridge is a narrow and loose OHV trail.",
+      "gpxFile": "Steelhead Adventure Trail/steelhead-adv-trail.gpx"
+    },
+    {
+      "id": "tahoe",
+      "name": "Tahoe Backcountry Discovery Trail",
+      "distance": 237,
+      "time": "3-5 days",
+      "avgRating": "2",
+      "peakRating": "3",
+      "terrain": "Majority forest service and jeep trails, with some minimal pavement. While there is nothing technical along the route, rocks are prevalent in certain sections (like Meadow Lake), substantially slowing one's the rate of travel.",
+      "gpxFile": "Tahoe Backcountry Discovery Trail/tahoe-bdt-2024-v2.gpx"
+    },
+    {
+      "id": "trona",
+      "name": "Trona Desert Trail",
+      "distance": 239,
+      "time": "4-6 days",
+      "avgRating": "3",
+      "peakRating": "5",
+      "terrain": "Graded dirt BLM roads, sandy washes, and some rockier and technical jeep tracks through Red Rock Canyon State Park and Goler Wash/Mengal Pass. Expect a lot of cliff exposure through South Park Canyon.",
+      "gpxFile": "Trona Desert Trail/trona-desert-trail.gpx"
+    }
+  ],
+  "metadata": {
+    "difficultyLevels": [
+      "Easy",
+      "Moderate",
+      "Challenging",
+      "Expert"
+    ],
+    "regions": [
+      "Northern California",
+      "Central California",
+      "Southern California",
+      "Sierra Nevada",
+      "Mojave Desert",
+      "Coast Range",
+      "Multiple"
+    ],
+    "vehicleRequirements": {
+      "clearanceLevels": [
+        "Standard",
+        "Medium",
+        "High"
+      ],
+      "skillLevels": [
+        "Beginner",
+        "Intermediate",
+        "Advanced",
+        "Expert"
+      ]
+    }
+  }
+} 

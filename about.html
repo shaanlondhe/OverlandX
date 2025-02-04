@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - OverlandX</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('../assets/Movie-road-alabama-hills.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 48px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Navigation styles */
+        .nav-bar {
+            background-color: #2c3e50;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a.active {
+            background-color: #3498db;
+        }
+
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .about-container {
+                padding: 1rem;
+            }
+
+            .hero {
+                height: 200px;
+                margin-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .section {
+                margin-bottom: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="index.html" class="logo">OverlandX</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>About OverlandX</h1>
+    </div>
+
+    <div class="about-container">
+        <div class="section">
+            <h2>Our Mission</h2>
+            <p>OverlandX is dedicated to helping off-road enthusiasts discover and navigate California's most exciting trails. We combine cutting-edge technology with local expertise to provide detailed trail information, ensuring safe and memorable adventures for every level of experience.</p>
+        </div>
+
+        <div class="section">
+            <h2>What We Offer</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Trail Discovery</h3>
+                    <p>Access our comprehensive database of California's best off-road trails, complete with difficulty ratings, terrain descriptions, and estimated completion times.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI Trail Assistant</h3>
+                    <p>Get personalized trail recommendations from our intelligent assistant, which considers your vehicle capabilities, experience level, and preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Detailed Information</h3>
+                    <p>Each trail comes with detailed information about technical ratings, terrain types, seasonal accessibility, and required vehicle specifications.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Why Choose OverlandX?</h2>
+            <p>Our platform combines local knowledge with advanced technology to provide the most accurate and up-to-date trail information. Whether you're a beginner looking for scenic routes or an experienced driver seeking technical challenges, OverlandX helps you find the perfect trail for your adventure.</p>
+            <p>We prioritize safety and responsible off-roading, ensuring that our recommendations consider both driver capability and environmental preservation.</p>
+        </div>
+
+        <div class="section">
+            <h2>Get Started</h2>
+            <p>Ready to explore California's incredible off-road trails? Use our interactive map and AI assistant to find your next adventure.</p>
+            <a href="index.html" class="cta-button">Start Exploring</a>
+        </div>
+    </div>
+</body>
+</html> 
