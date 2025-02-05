@@ -11,8 +11,7 @@
     <title>OverlandX - Adventure Awaits</title>
     <base href="/">
     <link rel="stylesheet" href="style.css">
-    <link rel="preload" href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous">
-    <noscript><link rel="stylesheet" href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css'></noscript>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
     <script>
         // Handle loading errors
         window.addEventListener('error', function(e) {
@@ -124,45 +123,8 @@
     </div>
 
     <!-- Scripts -->
-    <script>
-        // Retry loading script if it fails
-        function loadScript(src, retries = 3) {
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = src;
-                script.crossOrigin = "anonymous";
-                
-                script.onload = resolve;
-                script.onerror = () => {
-                    if (retries > 0) {
-                        setTimeout(() => {
-                            loadScript(src, retries - 1).then(resolve).catch(reject);
-                        }, 1000);
-                    } else {
-                        reject(new Error(`Failed to load script: ${src}`));
-                    }
-                };
-                
-                document.body.appendChild(script);
-            });
-        }
-
-        // Load scripts in sequence
-        async function loadScripts() {
-            try {
-                await loadScript('https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js');
-                await loadScript('/trailManager.js');
-                await loadScript('/app.js');
-            } catch (error) {
-                console.error('Script loading failed:', error);
-                const element = document.createElement('div');
-                element.className = 'loading-error';
-                element.innerHTML = 'Failed to load some resources. <button onclick="window.location.reload()">Retry</button>';
-                document.body.prepend(element);
-            }
-        }
-
-        loadScripts();
-    </script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <script type="module" src="trailManager.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html> 
