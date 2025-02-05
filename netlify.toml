@@ -14,10 +14,10 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline';"
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
     Access-Control-Allow-Headers = "*"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [build.processing]
   skip_processing = true
@@ -45,12 +45,14 @@
 [[headers]]
   for = "/*.js"
     [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "no-cache"
+    Access-Control-Allow-Origin = "*"
 
 [[headers]]
   for = "/*.css"
     [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "no-cache"
+    Access-Control-Allow-Origin = "*"
 
 [build.environment]
   NODE_VERSION = "18" 
