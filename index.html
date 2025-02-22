@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:;">
+    <link rel="preconnect" href="https://api.mapbox.com">
+    <link rel="preconnect" href="https://events.mapbox.com">
+    <link rel="preconnect" href="https://tiles.mapbox.com">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline';">
     <title>OverlandX - Adventure Awaits</title>
     <base href="/">
-    <link rel="stylesheet" href="style.css">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
     <div class="container">
         <!-- Loading Indicator -->
-        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-            Initializing...
+        <div id="loadingIndicator" class="loading-indicator">
+            Loading OverlandX...
         </div>
         
         <!-- Error Message -->
@@ -67,8 +70,50 @@
     </div>
 
     <!-- Scripts -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js' crossorigin="anonymous"></script>
-    <script type="module" src="/trailManager.js"></script>
-    <script type="module" src="/app.js"></script>
+    <script>
+        // Show loading indicator
+        document.getElementById('loadingIndicator').style.display = 'block';
+        
+        // Hide error message initially
+        document.getElementById('errorMessage').style.display = 'none';
+
+        // Function to load scripts sequentially
+        function loadScripts() {
+            return new Promise((resolve, reject) => {
+                const mapboxScript = document.createElement('script');
+                mapboxScript.src = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js';
+                mapboxScript.crossOrigin = 'anonymous';
+                mapboxScript.onload = () => {
+                    const trailManager = document.createElement('script');
+                    trailManager.type = 'module';
+                    trailManager.src = 'trailManager.js?v=' + Date.now();
+                    trailManager.onload = () => {
+                        const appScript = document.createElement('script');
+                        appScript.type = 'module';
+                        appScript.src = 'app.js?v=' + Date.now();
+                        appScript.onload = resolve;
+                        appScript.onerror = reject;
+                        document.body.appendChild(appScript);
+                    };
+                    trailManager.onerror = reject;
+                    document.body.appendChild(trailManager);
+                };
+                mapboxScript.onerror = reject;
+                document.body.appendChild(mapboxScript);
+            });
+        }
+
+        // Load scripts and handle errors
+        loadScripts()
+            .then(() => {
+                document.getElementById('loadingIndicator').style.display = 'none';
+            })
+            .catch((error) => {
+                console.error('Failed to load scripts:', error);
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('errorMessage').innerHTML = 'Error loading application. <button onclick="window.location.reload()">Retry</button>';
+            });
+    </script>
 </body>
 </html> 
