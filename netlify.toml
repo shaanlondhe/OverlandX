@@ -2,14 +2,33 @@
   publish = "."
 
 [[redirects]]
+  from = "/trails/*"
+  to = "/trails/:splat"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
 
 [[headers]]
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+    Content-Type = "text/html; charset=utf-8"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*.js"
+    [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*.css"
+    [headers.values]
+    Content-Type = "text/css; charset=utf-8"
     Cache-Control = "no-cache"
 
 [[headers]]

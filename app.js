@@ -8,46 +8,29 @@ let trailManager = null;
 // Initialize the application
 async function init() {
     try {
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        if (loadingIndicator) {
-            loadingIndicator.style.display = 'block';
-            loadingIndicator.textContent = 'Initializing...';
-        }
-
-        // Create trail manager and initialize map
+        // Create trail manager
         trailManager = new TrailManager();
+        
+        // Initialize map
         await trailManager.initMap();
+        console.log('Map initialized successfully');
+        
+        // Load trail data
+        await trailManager.loadTrailData();
+        console.log('Trail data loaded successfully');
         
         // Set up event listeners
         setupEventListeners();
+        console.log('Event listeners set up');
         
-        if (loadingIndicator) {
-            loadingIndicator.textContent = 'Loading trails...';
-        }
-
-        // Load trail data
-        await trailManager.loadTrailData();
-        
-        if (loadingIndicator) {
-            loadingIndicator.textContent = 'Preparing display...';
-        }
-
         // Populate trail list
         populateTrailList();
+        console.log('Trail list populated');
         
-        if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-        }
     } catch (error) {
         console.error('Error in initialization:', error);
-        const errorMessage = document.getElementById('errorMessage');
-        if (errorMessage) {
-            errorMessage.style.display = 'block';
-            errorMessage.innerHTML = `Error loading application: ${error.message}. <button onclick="window.location.reload()">Retry</button>`;
-        }
-        if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-        }
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('errorMessage').innerHTML = `Error: ${error.message}. <button onclick="window.location.reload()">Retry</button>`;
     }
 }
 
@@ -195,5 +178,9 @@ function selectTrail(trailId) {
     trailPath = trailManager.displayTrailOnMap(trailId);
 }
 
-// Remove setupMobileTrailPanel and resize handler
-document.addEventListener('DOMContentLoaded', init); 
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init(); 
+} 

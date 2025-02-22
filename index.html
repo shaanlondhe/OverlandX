@@ -12,6 +12,7 @@
     <base href="/">
     <link rel="stylesheet" href="style.css?v=1.0.0">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
 </head>
 <body>
     <div class="container">
@@ -69,51 +70,32 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script>
-        // Show loading indicator
-        document.getElementById('loadingIndicator').style.display = 'block';
-        
-        // Hide error message initially
-        document.getElementById('errorMessage').style.display = 'none';
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorMessage').innerHTML = 'Error loading application. <button onclick="window.location.reload()">Retry</button>';
+            return false;
+        };
 
-        // Function to load scripts sequentially
-        function loadScripts() {
-            return new Promise((resolve, reject) => {
-                const mapboxScript = document.createElement('script');
-                mapboxScript.src = 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js';
-                mapboxScript.crossOrigin = 'anonymous';
-                mapboxScript.onload = () => {
-                    const trailManager = document.createElement('script');
-                    trailManager.type = 'module';
-                    trailManager.src = 'trailManager.js?v=' + Date.now();
-                    trailManager.onload = () => {
-                        const appScript = document.createElement('script');
-                        appScript.type = 'module';
-                        appScript.src = 'app.js?v=' + Date.now();
-                        appScript.onload = resolve;
-                        appScript.onerror = reject;
-                        document.body.appendChild(appScript);
-                    };
-                    trailManager.onerror = reject;
-                    document.body.appendChild(trailManager);
-                };
-                mapboxScript.onerror = reject;
-                document.body.appendChild(mapboxScript);
-            });
-        }
-
-        // Load scripts and handle errors
-        loadScripts()
-            .then(() => {
-                document.getElementById('loadingIndicator').style.display = 'none';
-            })
-            .catch((error) => {
-                console.error('Failed to load scripts:', error);
-                document.getElementById('loadingIndicator').style.display = 'none';
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('errorMessage').innerHTML = 'Error loading application. <button onclick="window.location.reload()">Retry</button>';
-            });
+        window.onload = function() {
+            // Import and initialize after window loads
+            import('./trailManager.js')
+                .then(module => {
+                    window.TrailManager = module.default;
+                    return import('./app.js');
+                })
+                .then(() => {
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Failed to load application:', error);
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('errorMessage').innerHTML = 'Error loading application. <button onclick="window.location.reload()">Retry</button>';
+                });
+        };
     </script>
 </body>
 </html> 
