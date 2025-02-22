@@ -107,24 +107,6 @@ export default class TrailManager {
             const parser = new DOMParser();
             const gpxDoc = parser.parseFromString(gpxText, "text/xml");
             
-            // Extract waypoints
-            const waypoints = Array.from(gpxDoc.getElementsByTagName('wpt')).map(wpt => {
-                const symbol = wpt.getElementsByTagName('sym')[0]?.textContent || '';
-                // Map custom icons to standard symbols if needed
-                const mappedSymbol = symbol.startsWith('images/') ? 
-                    this.customIconMap[symbol] || this.customIconMap['default'] : 
-                    symbol;
-
-                return {
-                    lat: parseFloat(wpt.getAttribute('lat')),
-                    lng: parseFloat(wpt.getAttribute('lon')),
-                    name: wpt.getElementsByTagName('n')[0]?.textContent || '',
-                    description: wpt.getElementsByTagName('desc')[0]?.textContent || '',
-                    symbol: mappedSymbol,
-                    elevation: parseFloat(wpt.getElementsByTagName('ele')[0]?.textContent || 0)
-                };
-            });
-
             const segments = [];
 
             // Try to extract track segments first
@@ -134,9 +116,7 @@ export default class TrailManager {
                 for (const segment of trackSegments) {
                     const points = Array.from(segment.getElementsByTagName('trkpt')).map(point => ({
                         lat: parseFloat(point.getAttribute('lat')),
-                        lng: parseFloat(point.getAttribute('lon')),
-                        elevation: parseFloat(point.getElementsByTagName('ele')[0]?.textContent || 0),
-                        time: point.getElementsByTagName('time')[0]?.textContent
+                        lng: parseFloat(point.getAttribute('lon'))
                     }));
                     if (points.length > 0) {
                         segments.push(points);
@@ -149,21 +129,16 @@ export default class TrailManager {
                 const routes = gpxDoc.getElementsByTagName('rte');
                 for (const route of routes) {
                     const points = Array.from(route.getElementsByTagName('rtept')).map(point => ({
-                lat: parseFloat(point.getAttribute('lat')),
-                lng: parseFloat(point.getAttribute('lon')),
-                elevation: parseFloat(point.getElementsByTagName('ele')[0]?.textContent || 0),
-                time: point.getElementsByTagName('time')[0]?.textContent
-            }));
+                        lat: parseFloat(point.getAttribute('lat')),
+                        lng: parseFloat(point.getAttribute('lon'))
+                    }));
                     if (points.length > 0) {
                         segments.push(points);
                     }
                 }
             }
 
-            return {
-                waypoints,
-                segments
-            };
+            return { segments };
         } catch (error) {
             console.error(`Error loading GPX file for trail ${trailId}:`, error);
             return null;
@@ -172,7 +147,6 @@ export default class TrailManager {
 
     async addTrail(trailData) {
         try {
-            // For trails with multiple segments, we'll load the first segment initially
             const gpxFile = Array.isArray(trailData.gpxFile) ? trailData.gpxFile[0] : trailData.gpxFile;
             const gpxData = await this.loadGPXFile(trailData.id, gpxFile);
 
@@ -181,15 +155,16 @@ export default class TrailManager {
                 return null;
             }
 
-            // Create trail object with initial segment
+            // Create simplified trail object
             const trail = {
-                ...trailData,
-                waypoints: gpxData.waypoints || [],
-                segments: gpxData.segments || [],
-                sources: [],
-                layers: [],
-                currentSegmentIndex: 0,
-                hasMultipleSegments: Array.isArray(trailData.gpxFile)
+                id: trailData.id,
+                name: trailData.name,
+                distance: trailData.distance,
+                time: trailData.time,
+                avgRating: trailData.avgRating,
+                peakRating: trailData.peakRating,
+                terrain: trailData.terrain,
+                segments: gpxData.segments || []
             };
 
             this.trails.set(trail.id, trail);
@@ -197,31 +172,6 @@ export default class TrailManager {
         } catch (error) {
             console.error('Error adding trail:', error);
             return null;
-        }
-    }
-
-    async loadNextSegment(trailId) {
-        const trail = this.getTrail(trailId);
-        if (!trail || !trail.hasMultipleSegments) return false;
-
-        const nextIndex = trail.currentSegmentIndex + 1;
-        if (nextIndex >= trail.gpxFile.length) return false;
-
-        try {
-            const gpxData = await this.loadGPXFile(trailId, trail.gpxFile[nextIndex]);
-            if (!gpxData) return false;
-
-            // Append new data to existing trail
-            trail.waypoints = trail.waypoints.concat(gpxData.waypoints || []);
-            trail.segments = trail.segments.concat(gpxData.segments || []);
-            trail.currentSegmentIndex = nextIndex;
-
-            // Update trail in map
-            this.trails.set(trailId, trail);
-            return true;
-        } catch (error) {
-            console.error('Error loading next segment:', error);
-            return false;
         }
     }
 
@@ -234,24 +184,17 @@ export default class TrailManager {
     }
 
     clearCurrentDisplay() {
-        // Remove existing paths
         if (this.currentPath) {
-            this.currentPath.sources.forEach(sourceId => {
-                if (this.map.getSource(sourceId)) {
-                    // Remove associated layers first
-                    this.currentPath.layers.forEach(layerId => {
-                        if (this.map.getLayer(layerId)) {
-                            this.map.removeLayer(layerId);
-                        }
-                    });
-                    this.map.removeSource(sourceId);
+            this.currentPath.forEach(layerId => {
+                if (this.map.getLayer(layerId)) {
+                    this.map.removeLayer(layerId);
+                }
+                if (this.map.getSource(layerId)) {
+                    this.map.removeSource(layerId);
                 }
             });
         }
-
-        // Remove existing markers
-        this.currentMarkers.forEach(marker => marker.remove());
-        this.currentMarkers = [];
+        this.currentPath = null;
     }
 
     async displayTrailOnMap(trailId) {
@@ -260,14 +203,6 @@ export default class TrailManager {
 
         this.clearCurrentDisplay();
 
-        // For multi-segment trails, load all segments first
-        if (trail.hasMultipleSegments) {
-            for (let i = trail.currentSegmentIndex + 1; i < trail.gpxFile.length; i++) {
-                await this.loadNextSegment(trailId);
-            }
-        }
-
-        const sources = [];
         const layers = [];
         const bounds = new mapboxgl.LngLatBounds();
 
@@ -277,7 +212,6 @@ export default class TrailManager {
                 if (!segment || segment.length === 0) return;
 
                 const sourceId = `trail-${trailId}-segment-${index}`;
-                const layerId = `trail-layer-${trailId}-segment-${index}`;
 
                 // Convert segment to GeoJSON
                 const geojson = {
@@ -298,7 +232,7 @@ export default class TrailManager {
 
                     // Add layer
                     this.map.addLayer({
-                        id: layerId,
+                        id: sourceId,
                         type: 'line',
                         source: sourceId,
                         layout: {
@@ -307,13 +241,11 @@ export default class TrailManager {
                         },
                         paint: {
                             'line-color': '#FF0000',
-                            'line-width': 3,
-                            'line-opacity': 0.8
+                            'line-width': 3
                         }
                     });
 
-                    sources.push(sourceId);
-                    layers.push(layerId);
+                    layers.push(sourceId);
 
                     // Extend bounds
                     segment.forEach(point => {
@@ -325,138 +257,16 @@ export default class TrailManager {
             });
         }
 
-        // Add waypoints if they exist
-        if (trail.waypoints && trail.waypoints.length > 0) {
-            // Convert waypoints to GeoJSON
-            const waypointsGeojson = {
-                type: 'FeatureCollection',
-                features: trail.waypoints.map(waypoint => ({
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [waypoint.lng, waypoint.lat]
-                    },
-                    properties: {
-                        name: waypoint.name,
-                        description: waypoint.description,
-                        elevation: waypoint.elevation,
-                        symbol: waypoint.symbol
-                    }
-                }))
-            };
-
-            try {
-                // Add waypoints source
-                const waypointSourceId = `waypoints-${trailId}`;
-                this.map.addSource(waypointSourceId, {
-                    type: 'geojson',
-                    data: waypointsGeojson
-                });
-                sources.push(waypointSourceId);
-
-                // Add waypoints layer
-                const waypointLayerId = `waypoints-layer-${trailId}`;
-                this.map.addLayer({
-                    id: waypointLayerId,
-                    type: 'symbol',
-                    source: waypointSourceId,
-                    layout: {
-                        'icon-image': ['get', 'symbol'],
-                        'icon-size': 1.2,
-                        'icon-allow-overlap': true,
-                        'text-field': ['get', 'name'],
-                        'text-font': ['Open Sans Regular'],
-                        'text-offset': [0, 1.5],
-                        'text-anchor': 'top',
-                        'text-size': 12,
-                        'text-allow-overlap': false,
-                        'text-optional': true
-                    },
-                    paint: {
-                        'text-halo-width': 1,
-                        'text-halo-color': 'white'
-                    }
-                });
-                layers.push(waypointLayerId);
-
-                // Add click handler for waypoint popups
-                this.map.on('click', waypointLayerId, (e) => {
-                    if (!e.features.length) return;
-
-                    const coordinates = e.features[0].geometry.coordinates.slice();
-                    const properties = e.features[0].properties;
-
-                    // Create popup content
-                    const popupContent = `
-                        <h3>${properties.name}</h3>
-                        ${properties.description ? `<p>${properties.description}</p>` : ''}
-                        ${properties.elevation ? `<p>Elevation: ${properties.elevation}m</p>` : ''}
-                    `;
-
-                    // Create and show popup
-                    const popup = new mapboxgl.Popup({
-                        offset: [0, 10],
-                        maxWidth: '300px',
-                        className: 'waypoint-popup',
-                        anchor: 'top',
-                        focusAfterOpen: false,
-                        closeButton: true,
-                        closeOnClick: false
-                    })
-                        .setLngLat(coordinates)
-                        .setHTML(popupContent)
-                        .addTo(this.map);
-
-                    // Ensure popup is visible within viewport
-                    popup.on('open', () => {
-                        const popupElement = popup.getElement();
-                        const mapElement = this.map.getContainer();
-                        const mapRect = mapElement.getBoundingClientRect();
-                        const popupRect = popupElement.getBoundingClientRect();
-
-                        if (popupRect.bottom > mapRect.bottom) {
-                            const overflowY = popupRect.bottom - mapRect.bottom + 20;
-                            const center = this.map.getCenter();
-                            const point = this.map.project(center);
-                            point.y -= overflowY;
-                            this.map.easeTo({ 
-                                center: this.map.unproject(point),
-                                duration: 300
-                            });
-                        }
-                    });
-                });
-
-                // Change cursor to pointer when hovering over waypoints
-                this.map.on('mouseenter', waypointLayerId, () => {
-                    this.map.getCanvas().style.cursor = 'pointer';
-                });
-                this.map.on('mouseleave', waypointLayerId, () => {
-                    this.map.getCanvas().style.cursor = '';
-                });
-
-                // Extend bounds with waypoints
-                trail.waypoints.forEach(waypoint => {
-                    bounds.extend([waypoint.lng, waypoint.lat]);
-                });
-            } catch (error) {
-                console.error('Error adding waypoints:', error);
-            }
-        }
-
-        // Store current path info
-        this.currentPath = { sources, layers };
+        this.currentPath = layers;
 
         // Fit map to bounds if we have any points
-        if (bounds.isEmpty()) {
-            console.warn('No valid coordinates found for trail:', trailId);
-        } else {
+        if (!bounds.isEmpty()) {
             this.map.fitBounds(bounds, {
                 padding: 50
             });
         }
 
-        return this.currentPath;
+        return layers;
     }
 
     createNavigationLink(lat, lng) {
