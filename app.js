@@ -3,16 +3,51 @@ import TrailManager from './trailManager.js';
 // Initialize variables
 let currentTrail = null;
 let trailPath = null;
-const trailManager = new TrailManager();
+let trailManager = null;
 
 // Initialize the application
 async function init() {
     try {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'block';
+            loadingIndicator.textContent = 'Initializing...';
+        }
+
+        // Create trail manager and initialize map
+        trailManager = new TrailManager();
+        await trailManager.initMap();
+        
+        // Set up event listeners
         setupEventListeners();
-        await trailManager.loadTrailData(); // Load trails from JSON
+        
+        if (loadingIndicator) {
+            loadingIndicator.textContent = 'Loading trails...';
+        }
+
+        // Load trail data
+        await trailManager.loadTrailData();
+        
+        if (loadingIndicator) {
+            loadingIndicator.textContent = 'Preparing display...';
+        }
+
+        // Populate trail list
         populateTrailList();
+        
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
     } catch (error) {
-        console.error('Error in init:', error);
+        console.error('Error in initialization:', error);
+        const errorMessage = document.getElementById('errorMessage');
+        if (errorMessage) {
+            errorMessage.style.display = 'block';
+            errorMessage.innerHTML = `Error loading application: ${error.message}. <button onclick="window.location.reload()">Retry</button>`;
+        }
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
     }
 }
 

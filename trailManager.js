@@ -58,15 +58,28 @@ export default class TrailManager {
             'images/icon-19.png': 'lodging',         // Institute
             'default': 'marker'                      // Default marker
         };
-        
-        // Initialize MapBox
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic2hhYW5sb25kaGUiLCJhIjoiY202bWcxYnMyMGRhNzJrb2dtcm9jaXg3bCJ9.mxKxq5XABY148dnhWyQf4A';
-        this.map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v12',
-            center: [-119.4179, 36.7783], // Center of California
-            zoom: 7
-        });
+    }
+
+    initMap() {
+        try {
+            if (!mapboxgl) {
+                throw new Error('Mapbox GL JS not loaded');
+            }
+            
+            mapboxgl.accessToken = 'pk.eyJ1Ijoic2hhYW5sb25kaGUiLCJhIjoiY202bWcxYnMyMGRhNzJrb2dtcm9jaXg3bCJ9.mxKxq5XABY148dnhWyQf4A';
+            
+            this.map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/outdoors-v12',
+                center: [-119.4179, 36.7783], // Center of California
+                zoom: 7
+            });
+
+            return true;
+        } catch (error) {
+            console.error('Error initializing map:', error);
+            throw error;
+        }
     }
 
     async loadTrailData() {
