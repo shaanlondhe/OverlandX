@@ -13,17 +13,43 @@
     <link rel="stylesheet" href="style.css?v=1.0.0">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <script>
+        // Handle offline state
+        window.addEventListener('offline', function(e) {
+            document.getElementById('offlineMessage').style.display = 'block';
+        });
+        
+        window.addEventListener('online', function(e) {
+            document.getElementById('offlineMessage').style.display = 'none';
+            // Reload the page when we're back online
+            window.location.reload();
+        });
+
+        // Global error handler
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorMessage').innerHTML = 'An error occurred. <button onclick="window.location.reload()">Retry</button>';
+            return false;
+        };
+    </script>
 </head>
 <body>
-    <div class="container">
-        <!-- Loading Indicator -->
-        <div id="loadingIndicator" class="loading-indicator">
-            Loading OverlandX...
-        </div>
-        
-        <!-- Error Message -->
-        <div id="errorMessage" class="error-message" style="display: none;"></div>
+    <!-- Offline Message -->
+    <div id="offlineMessage" class="error-message" style="display: none;">
+        You are currently offline. Please check your internet connection.
+        <button onclick="window.location.reload()">Retry</button>
+    </div>
+    
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
 
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator">
+        Loading OverlandX...
+    </div>
+
+    <div class="container">
         <!-- Navigation -->
         <header>
             <nav class="nav-bar">
@@ -71,14 +97,7 @@
     </div>
 
     <script>
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
-            document.getElementById('loadingIndicator').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'block';
-            document.getElementById('errorMessage').innerHTML = 'Error loading application. <button onclick="window.location.reload()">Retry</button>';
-            return false;
-        };
-
+        // Initialize after window loads
         window.onload = function() {
             // Import and initialize after window loads
             import('./trailManager.js')
