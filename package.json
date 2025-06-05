@@ -1,14 +1,13 @@
 {
   "name": "overlandx",
   "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "openai": "^4.82.0"
-  },
+  "description": "OverlandX Trail Explorer",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js"
-  }
+    "start": "node server.js",
+    "build": "echo 'Building OverlandX...'",
+    "test": "echo 'No tests configured'"
+  },
+  "author": "",
+  "license": "ISC"
 }

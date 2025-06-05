@@ -1,0 +1,7 @@
+{
+  "name": "overlandx",
+  "build": {
+    "publish": ".",
+    "command": "npm run build"
+  }
+} 

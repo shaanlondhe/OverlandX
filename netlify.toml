@@ -1,5 +1,6 @@
 [build]
   publish = "."
+  command = "echo 'Building site...'"
 
 [[redirects]]
   from = "/trails/*"
@@ -38,9 +39,7 @@
   NODE_VERSION = "18"
 
 [context.production]
-  publish = "."
-  command = ""
+  command = "echo 'Production build...'"
 
 [context.deploy-preview]
-  publish = "."
-  command = "" 
+  command = "echo 'Preview build...'" 
